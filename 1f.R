@@ -13,27 +13,34 @@ for (i in 1:years) {
 for (i in 1:years) {
   start_date = min(date[year(date) == start_year-1+i])
   end_date = max(date[year(date) == start_year-1+i])
-  changes$Year_change[i] = (data[data$Date == end_date, 'Close'] / data[data$Date == start_date, 'Close']) - 1
+  changes$Year_change[i] = 100 * ((data[data$Date == end_date, 'Close'] / data[data$Date == start_date, 'Close']) - 1)
 }
 
 for (i in 1:years) {
   start_date = min(date[year(date) == start_year-1+i & month(date) == 1])
   end_date = max(date[year(date) == start_year-1+i & month(date) == 1])
-  changes$Jan_change[i] = (data[data$Date == end_date, 'Close'] / data[data$Date == start_date, 'Close']) - 1
+  changes$Jan_change[i] = 100 * 12*((data[data$Date == end_date, 'Close'] / data[data$Date == start_date, 'Close']) - 1)
 }
 
-pdf(file = '1f.pdf')
-plot(changes$Year, changes$Year_change,
-     type='b',
+pdf(file = '1f.pdf',
+    width=12,
+    height=10)
+plot(changes$Year, changes$Jan_change,
+     type='p',
      col='orange',
      xlab='Year',
-     ylab='Change')
-lines(changes$Year, changes$Jan_change,
-     type='b',
+     ylab='Change in %',
+     ylim=c(-200,200))
+lines(changes$Year, changes$Year_change,
+     type='p',
      col='blue')
 abline(
   h=0,
   col='black',
   lwd=1
 )
+legend('topleft',
+  legend = c('Annual Change','Year-on-year January Change'),
+  col = c('blue', 'orange'),
+  pch = 1)
 
