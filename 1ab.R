@@ -1,20 +1,28 @@
+# Plot for the task 1a
+
 source('import.R')
 
+# Define how to save the plot
 pdf(file="1a.pdf",
-    width=14)
-par(mfrow = c(1,2))
+    width=12,
+    height=16)
+par(mfrow = c(2,1))
 
+# Plot daily opening prices
 plot(date, open,
-     type='l',
+     type='p',
      main='Opening prices',
      col='orange',
      xlab='Date',
-     ylab='Opening price')
+     ylab='Price',
+     cex=0.5)
+# Plot daily closing prices
 plot(date, close,
-     type='l',
+     type='p',
      main='Closing prices',
      col='blue',
      xlab='Date',
-     ylab='Closing price')
+     ylab='Price',
+     cex=0.5)
 
 dev.off()
