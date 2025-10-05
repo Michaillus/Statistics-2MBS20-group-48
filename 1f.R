@@ -39,15 +39,22 @@ pdf(file = '1f.pdf',
 barplot(rbind(year_change, jan_change),
         names.arg = year,
         main = 'Market performance in January vs the whole year',
+        cex.main = 2,
         beside = TRUE,
         col = colors,
-        ylim=c(-200,100),
+        ylim=c(-170,100),
         xlab='Year',
         ylab='Change in %')
+# Add legend and x-axis line to the plot
 legend('bottomright',
   legend = c('Annual Change','Year-on-year January Change'),
   col = colors,
   pch=15)
+abline(
+  h=0,
+  col='black',
+  lwd=1
+)
 
 # Compute mean absolute error between annual price change and year-on-year price change in January
 mean_abs_error = 0
